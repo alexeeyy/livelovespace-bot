@@ -3,7 +3,8 @@ const commands = `
 /help - Допомога
 `;
 
-const textWelcome = `<b>Namaste! LiveLoveSpace бот вітає Вас!</b>`;
+const textWelcome = `<b>Namaste!
+LiveLoveSpace бот вітає Вас!</b>`;
 
 const textYoga = `Йога з Анною Паніною 18:30 - 19:30
 Вартість 200грн`;
