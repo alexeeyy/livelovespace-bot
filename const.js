@@ -13,7 +13,7 @@ const masters = {
 
 const events = [
 	{
-		name: "yoga",
+		name: "Йога",
 		callbackId: "yoga",
 		master: masters.Anna,
 		text: `Йога з Анною Паніною.
@@ -22,7 +22,7 @@ const events = [
 Вартість 200грн.`,
 	},
 	{
-		name: "teas",
+		name: "Чай",
 		callbackId: "tea",
 		master: masters.Amet,
 		text: `Дзадзен та чай з Амєтом.
@@ -31,7 +31,7 @@ const events = [
 Вартість 200грн.`,
 	},
 	{
-		name: "qiqong",
+		name: "Цігун",
 		callbackId: "qiqong",
 		master: masters.Maks,
 		text: `Цігун із Максом.
@@ -40,7 +40,7 @@ const events = [
 Вартість 200грн.`,
 	},
 	{
-		name: "meditation",
+		name: "Медитація",
 		callbackId: "meditation",
 		master: masters.Amet,
 		text: `Дзадзен та чай з Амєтом.
@@ -49,7 +49,7 @@ const events = [
 Вартість 200грн.`,
 	},
 	{
-		name: "teaWeekend",
+		name: "Чаювання по домашньому",
 		callbackId: "teaWeekend",
 		master: masters.Amet,
 		text: `Чаювання по домашньому.
@@ -58,18 +58,30 @@ const events = [
 Вартість 250грн.`,
 	},
 	{
-		name: "customEvent",
+		name: "Теплий Indoor Live Love Festival",
 		callbackId: "customEvent",
 		master: masters.Anna,
 		text: `Теплий Indoor Live Love Festival`,
 	},
 ];
 
-const days = {
-	Tuesday: [events.Yoga, events.Qigong],
-	Wednesday: [events.Tea],
-	Thursday: [events.Yoga, events.Qigong],
-};
+const days = [
+	{
+		day: "Tuesday",
+	},
+	{
+		day: "Wednesday",
+	},
+	{
+		day: "Thursday",
+	},
+	{
+		day: "Saturday",
+	},
+	{
+		day: "Sunday",
+	},
+];
 
 module.exports.commands = commands;
 module.exports.textWelcome = textWelcome;
