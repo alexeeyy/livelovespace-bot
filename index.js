@@ -32,14 +32,6 @@ bot.action("events-by-day", async (ctx) => {
 		console.error(e);
 	}
 });
-// bot.action("Tuesday", async (ctx) => {
-// 	try {
-// 		await ctx.answerCbQuery();
-// 		return ctx.editMessageText("Події вівторка:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga-single"), Markup.button.callback("Цігун", "qiqong-single")], [Markup.button.callback("На головну", "to-start")]]));
-// 	} catch (e) {
-// 		console.error(e);
-// 	}
-// });
 bot.action("events-by-category", async (ctx) => {
 	try {
 		await ctx.answerCbQuery();
@@ -110,10 +102,6 @@ base.days.forEach((day) => {
 // 		}
 // 	});
 // }
-
-// eventButtonAction("Wednesday", base.days.Wednesday);
-// addButtonAction("qiqong-single", "./images/Maks.jpg", base.textQigong);
-// addButtonAction("events-btn_3", "./images/Amet.jpg", base.textZen);
 
 bot.action("contacts", async (ctx) => {
 	try {
