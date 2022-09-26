@@ -5,15 +5,7 @@ const base = require("./const");
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 //======= START =======//
-bot.start(async (ctx) => {
-	setTimeout(() => {
-		try {
-			return ctx.replyWithHTML("Головне меню:", Markup.inlineKeyboard([[Markup.button.callback("Розклад подій", "events")], [Markup.button.callback("Контакти", "contacts")]]));
-		} catch (e) {
-			console.error(e);
-		}
-	}, 1000);
-});
+// bot.start();
 
 bot.action("events", async (ctx) => {
 	try {
@@ -118,4 +110,12 @@ bot.action("to-start", async (ctx) => {
 	}
 });
 
-bot.launch();
+bot.launch(async (ctx) => {
+	setTimeout(() => {
+		try {
+			return ctx.replyWithHTML("Головне меню:", Markup.inlineKeyboard([[Markup.button.callback("Розклад подій", "events")], [Markup.button.callback("Контакти", "contacts")]]));
+		} catch (e) {
+			console.error(e);
+		}
+	}, 1000);
+});
