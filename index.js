@@ -19,7 +19,23 @@ bot.start(async (ctx) => {
 bot.action("events", async (ctx) => {
 	try {
 		await ctx.answerCbQuery();
-		return ctx.editMessageText("Виберіть фільтр:", Markup.inlineKeyboard([[Markup.button.callback("По дням", "events-by-day"), Markup.button.callback("По категоріям", "events-by-category")]]));
+		return ctx.editMessageText("Виберіть фільтр:", Markup.inlineKeyboard([[Markup.button.callback("По дням", "events-by-day"), Markup.button.callback("По категоріям", "events-by-category")], [Markup.button.callback("На головну", "to-start")]]));
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.action("events-by-day", async (ctx) => {
+	try {
+		await ctx.answerCbQuery();
+		return ctx.editMessageText("Події цього тижня:", Markup.inlineKeyboard([[Markup.button.callback("Вівторок", "Tuesday"), Markup.button.callback("Середа", "Wednesday"), Markup.button.callback("Четвер", "Thursday")], [Markup.button.callback("Субота", "Saturday"), Markup.button.callback("Неділя", "Sunday")], [Markup.button.callback("На головну", "to-start")]]));
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.action("Tuesday", async (ctx) => {
+	try {
+		await ctx.answerCbQuery();
+		return ctx.editMessageText("Події вівторка:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga-single"), Markup.button.callback("Цігун", "qiqong-single")], [Markup.button.callback("На головну", "to-start")]]));
 	} catch (e) {
 		console.error(e);
 	}
@@ -28,6 +44,38 @@ bot.action("events-by-category", async (ctx) => {
 	try {
 		await ctx.answerCbQuery();
 		return ctx.editMessageText("Категорії:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga"), Markup.button.callback("Чай", "tea")], [Markup.button.callback("Цігун", "qiqong"), Markup.button.callback("Медитація", "meditation")], [Markup.button.callback("На головну", "to-start")]]));
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.action("yoga", async (ctx) => {
+	try {
+		await ctx.answerCbQuery();
+		return ctx.editMessageText(base.textYoga, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/annaliveloveyoga")], [Markup.button.callback("На головну", "to-start")]]));
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.action("tea", async (ctx) => {
+	try {
+		await ctx.answerCbQuery();
+		return ctx.editMessageText(base.textTea, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/original_amet")], [Markup.button.callback("На головну", "to-start")]]));
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.action("qiqong", async (ctx) => {
+	try {
+		await ctx.answerCbQuery();
+		return ctx.editMessageText(base.textQigong, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/Chefuknow")], [Markup.button.callback("На головну", "to-start")]]));
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.action("meditation", async (ctx) => {
+	try {
+		await ctx.answerCbQuery();
+		return ctx.editMessageText(base.textZen, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/original_amet")], [Markup.button.callback("На головну", "to-start")]]));
 	} catch (e) {
 		console.error(e);
 	}
@@ -52,9 +100,9 @@ function addButtonAction(id, src, text) {
 	});
 }
 
-// addButtonAction("events-btn_2", "./images/Anna.jpg", base.textYoga);
+addButtonAction("yoga-single", "./images/Anna.jpg", base.textYoga);
+addButtonAction("qiqong-single", "./images/Maks.jpg", base.textQigong);
 // addButtonAction("events-btn_3", "./images/Amet.jpg", base.textZen);
-// addButtonAction("events-btn_4", "./images/Maks.jpg", base.textQigong);
 
 bot.action("contacts", async (ctx) => {
 	try {
