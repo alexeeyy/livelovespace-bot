@@ -32,14 +32,14 @@ bot.action("events-by-day", async (ctx) => {
 		console.error(e);
 	}
 });
-bot.action("Tuesday", async (ctx) => {
-	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText("Події вівторка:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga-single"), Markup.button.callback("Цігун", "qiqong-single")], [Markup.button.callback("На головну", "to-start")]]));
-	} catch (e) {
-		console.error(e);
-	}
-});
+// bot.action("Tuesday", async (ctx) => {
+// 	try {
+// 		await ctx.answerCbQuery();
+// 		return ctx.editMessageText("Події вівторка:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga-single"), Markup.button.callback("Цігун", "qiqong-single")], [Markup.button.callback("На головну", "to-start")]]));
+// 	} catch (e) {
+// 		console.error(e);
+// 	}
+// });
 bot.action("events-by-category", async (ctx) => {
 	try {
 		await ctx.answerCbQuery();
@@ -48,60 +48,41 @@ bot.action("events-by-category", async (ctx) => {
 		console.error(e);
 	}
 });
-bot.action("yoga", async (ctx) => {
-	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText(base.textYoga, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/annaliveloveyoga")], [Markup.button.callback("На головну", "to-start")]]));
-	} catch (e) {
-		console.error(e);
-	}
-});
-bot.action("tea", async (ctx) => {
-	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText(base.textTea, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/original_amet")], [Markup.button.callback("На головну", "to-start")]]));
-	} catch (e) {
-		console.error(e);
-	}
-});
-bot.action("qiqong", async (ctx) => {
-	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText(base.textQigong, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/Chefuknow")], [Markup.button.callback("На головну", "to-start")]]));
-	} catch (e) {
-		console.error(e);
-	}
-});
-bot.action("meditation", async (ctx) => {
-	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText(base.textZen, Markup.inlineKeyboard([[Markup.button.url("Записатися", "t.me/original_amet")], [Markup.button.callback("На головну", "to-start")]]));
-	} catch (e) {
-		console.error(e);
-	}
-});
 
-//======= FUNCTIONS =======//
-function addButtonAction(id, src, text) {
-	bot.action(id, async (ctx) => {
+base.events.forEach((event) => {
+	bot.action(event.callbackId, async (ctx) => {
 		try {
-			await ctx.answerCbQuery();
-			if (src !== false) {
-				await ctx.replyWithPhoto({
-					source: src,
-				});
-			}
-			return ctx.replyWithHTML(text, {
-				disable_web_page_preview: true,
-			});
+			ctx.answerCbQuery();
+			return ctx.editMessageText(event.text, Markup.inlineKeyboard([[Markup.button.url("Записатися", event.master)], [Markup.button.callback("На головну", "to-start")]]));
 		} catch (e) {
 			console.error(e);
 		}
 	});
-}
+});
 
-addButtonAction("yoga-single", "./images/Anna.jpg", base.textYoga);
-addButtonAction("qiqong-single", "./images/Maks.jpg", base.textQigong);
+//======= FUNCTIONS =======//
+// function eventButtonAction(id, day, text) {
+// 	bot.action(id, async (ctx) => {
+// 		try {
+// 			await ctx.answerCbQuery();
+// 			// if (src !== false) {
+// 			// 	await ctx.replyWithPhoto({
+// 			// 		source: src,
+// 			// 	});
+// 			// }
+// 			return ctx.replyWithHTML(
+// 				day.forEach((el) => {
+// 					el.text;
+// 				})
+// 			);
+// 		} catch (e) {
+// 			console.error(e);
+// 		}
+// 	});
+// }
+
+// eventButtonAction("Wednesday", base.days.Wednesday);
+// addButtonAction("qiqong-single", "./images/Maks.jpg", base.textQigong);
 // addButtonAction("events-btn_3", "./images/Amet.jpg", base.textZen);
 
 bot.action("contacts", async (ctx) => {
