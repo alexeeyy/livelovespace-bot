@@ -6,14 +6,13 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 //======= START =======//
 bot.start(async (ctx) => {
-	try {
-		await ctx.replyWithHTML(base.textWelcome);
-		setTimeout(() => {
+	setTimeout(() => {
+		try {
 			return ctx.replyWithHTML("Головне меню:", Markup.inlineKeyboard([[Markup.button.callback("Розклад подій", "events")], [Markup.button.callback("Контакти", "contacts")]]));
-		}, 1000);
-	} catch (e) {
-		console.error(e);
-	}
+		} catch (e) {
+			console.error(e);
+		}
+	}, 1000);
 });
 
 bot.action("events", async (ctx) => {
