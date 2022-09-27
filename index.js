@@ -7,74 +7,105 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 //======= START =======//
 bot.start(async (ctx) => {
 	try {
-		await ctx.replyWithHTML(base.textWelcome);
-		setTimeout(() => {
-			return ctx.replyWithHTML("Головне меню:", Markup.inlineKeyboard([[Markup.button.callback("Розклад подій", "events")], [Markup.button.callback("Контакти", "contacts")]]));
-		}, 1000);
+		await ctx.deleteMessage();
+		return ctx.replyWithHTML(base.textWelcome, {
+			reply_markup: {
+				keyboard: [[{ text: "🎉  Розклад подій" }, { text: "💌  Контакти" }]],
+				resize_keyboard: true,
+			},
+		});
 	} catch (e) {
 		console.error(e);
 	}
 });
 
-bot.action("events", async (ctx) => {
+bot.hears("🎉  Розклад подій", async (ctx) => {
 	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText("Виберіть фільтр:", Markup.inlineKeyboard([[Markup.button.callback("По дням", "events-by-day"), Markup.button.callback("По категоріям", "events-by-category")], [Markup.button.callback("На головну", "to-start")]]));
+		return ctx.replyWithHTML("Фільтр подій по:", {
+			reply_markup: {
+				keyboard: [[{ text: "📅  Дням" }, { text: "✨  Категоріям" }], [{ text: "🏠  На головну" }]],
+				resize_keyboard: true,
+			},
+		});
 	} catch (e) {
 		console.error(e);
 	}
 });
-bot.action("events-by-day", async (ctx) => {
+bot.hears("📅  Дням", async (ctx) => {
 	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText("Події цього тижня:", Markup.inlineKeyboard([[Markup.button.callback("Вівторок", "Tuesday"), Markup.button.callback("Середа", "Wednesday"), Markup.button.callback("Четвер", "Thursday")], [Markup.button.callback("Субота", "Saturday"), Markup.button.callback("Неділя", "Sunday")], [Markup.button.callback("На головну", "to-start")]]));
+		return ctx.replyWithHTML("Події цього тижня:", {
+			reply_markup: {
+				keyboard: [[{ text: "ВТ" }, { text: "СР" }, { text: "ЧТ" }, { text: "СБ" }, { text: "НД" }], [{ text: "🏠  На головну" }]],
+				resize_keyboard: true,
+			},
+		});
 	} catch (e) {
 		console.error(e);
 	}
 });
-bot.action("events-by-category", async (ctx) => {
+bot.hears("✨  Категоріям", async (ctx) => {
 	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText("Категорії:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga"), Markup.button.callback("Чай", "tea")], [Markup.button.callback("Цігун", "qiqong"), Markup.button.callback("Медитація", "meditation")], [Markup.button.callback("На головну", "to-start")]]));
+		return ctx.replyWithHTML("Категорії:", {
+			reply_markup: {
+				keyboard: [[{ text: "🧘  Йога" }, { text: "🍃  Чай" }], [{ text: "☯️  Цігун" }, { text: "🕉️  Медитація" }], [{ text: "🏠  На головну" }]],
+				resize_keyboard: true,
+			},
+		});
 	} catch (e) {
 		console.error(e);
 	}
 });
 
 base.events.forEach((event) => {
-	bot.action(event.callbackId, async (ctx) => {
-		try {
-			ctx.answerCbQuery();
-			return ctx.editMessageText(event.text, Markup.inlineKeyboard([[Markup.button.url("Записатися", event.master)], [Markup.button.callback("На головну", "to-start")]]));
-		} catch (e) {
-			console.error(e);
-		}
-	});
+	eventButtonAction(event.name, event.photo, event.text, event.master);
 });
 
 base.days.forEach((day) => {
-	bot.action(day.day, async (ctx) => {
+	bot.hears(day, async (ctx) => {
 		try {
-			await ctx.answerCbQuery();
-
-			if (day.day === "Tuesday") {
-				return ctx.editMessageText("Події вівторка:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga"), Markup.button.callback("Цігун", "qiqong")], [Markup.button.callback("На головну", "to-start")]]));
+			if (day === "ВТ") {
+				return ctx.replyWithHTML("Події вівторка:", {
+					reply_markup: {
+						keyboard: [[{ text: "🧘  Йога" }, { text: "☯️  Цігун" }], [{ text: "🏠  На головну" }]],
+						resize_keyboard: true,
+					},
+				});
 			}
 
-			if (day.day === "Wednesday") {
-				return ctx.editMessageText("Події середи:", Markup.inlineKeyboard([[Markup.button.callback("Чай та медитація", "meditation")], [Markup.button.callback("На головну", "to-start")]]));
+			if (day === "СР") {
+				return ctx.replyWithHTML("Події середи:", {
+					reply_markup: {
+						keyboard: [[{ text: "🕉️  Медитація" }], [{ text: "🏠  На головну" }]],
+						resize_keyboard: true,
+					},
+				});
 			}
 
-			if (day.day === "Tuesday" || day.day === "Thursday") {
-				return ctx.editMessageText("Події четверга:", Markup.inlineKeyboard([[Markup.button.callback("Йога", "yoga"), Markup.button.callback("Цігун", "qiqong")], [Markup.button.callback("На головну", "to-start")]]));
+			if (day === "ЧТ") {
+				return ctx.replyWithHTML("Події Четверга:", {
+					reply_markup: {
+						keyboard: [[{ text: "🧘  Йога" }, { text: "☯️  Цігун" }], [{ text: "🏠  На головну" }]],
+						resize_keyboard: true,
+					},
+				});
 			}
 
-			if (day.day === "Saturday") {
-				return ctx.editMessageText("Події суботи:", Markup.inlineKeyboard([[Markup.button.callback("Теплий Indoor Live Love Festival", "customEvent")], [Markup.button.callback("На головну", "to-start")]]));
+			if (day === "СБ") {
+				return ctx.replyWithHTML("Події суботи:", {
+					reply_markup: {
+						keyboard: [[{ text: "Теплий Indoor Live Love Festival" }], [{ text: "🏠  На головну" }]],
+						resize_keyboard: true,
+					},
+				});
 			}
 
-			if (day.day === "Sunday") {
-				return ctx.editMessageText("Події неділі:", Markup.inlineKeyboard([[Markup.button.callback("Теплий Indoor Live Love Festival", "customEvent")], [Markup.button.callback("На головну", "to-start")]]));
+			if (day === "НД") {
+				return ctx.replyWithHTML("Події неділі:", {
+					reply_markup: {
+						keyboard: [[{ text: "Теплий Indoor Live Love Festival" }], [{ text: "🏠  На головну" }]],
+						resize_keyboard: true,
+					},
+				});
 			}
 		} catch (e) {
 			console.error(e);
@@ -83,37 +114,45 @@ base.days.forEach((day) => {
 });
 
 //======= FUNCTIONS =======//
-// function eventButtonAction(id, day, text) {
-// 	bot.action(id, async (ctx) => {
-// 		try {
-// 			await ctx.answerCbQuery();
-// 			// if (src !== false) {
-// 			// 	await ctx.replyWithPhoto({
-// 			// 		source: src,
-// 			// 	});
-// 			// }
-// 			return ctx.replyWithHTML(
-// 				day.forEach((el) => {
-// 					el.text;
-// 				})
-// 			);
-// 		} catch (e) {
-// 			console.error(e);
-// 		}
-// 	});
-// }
+function eventButtonAction(name, src, text, master) {
+	bot.hears(name, async (ctx) => {
+		try {
+			if (src !== false) {
+				return ctx.replyWithPhoto(
+					{
+						source: src,
+					},
+					{
+						caption: text,
+						reply_markup: {
+							inline_keyboard: [[Markup.button.url("Записатися", master)]],
+						},
+					}
+				);
+			} else {
+				return ctx.replyWithHTML(text);
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	});
+}
 
-bot.action("contacts", async (ctx) => {
+bot.hears("💌  Контакти", async (ctx) => {
 	try {
-		await ctx.answerCbQuery();
-		return ctx.editMessageText("Анна Паніна - засновниця простору та наш викладач з йоги.", Markup.inlineKeyboard([[Markup.button.url("Зв'язатися", "t.me/annaliveloveyoga")], [Markup.button.callback("На головну", "to-start")]]));
+		return ctx.replyWithHTML("<b>Анна Паніна</b> - мама спейсу, та наш викладач з йоги.", Markup.inlineKeyboard([[Markup.button.url("Зв'язатися", "t.me/annaliveloveyoga")]]));
 	} catch (e) {
 		console.error(e);
 	}
 });
-bot.action("to-start", async (ctx) => {
+bot.hears("🏠  На головну", async (ctx) => {
 	try {
-		await ctx.editMessageText("Головне меню:", Markup.inlineKeyboard([[Markup.button.callback("Розклад подій", "events")], [Markup.button.callback("Контакти", "contacts")]]));
+		return ctx.replyWithHTML("Головне меню:", {
+			reply_markup: {
+				keyboard: [[{ text: "🎉  Розклад подій" }, { text: "💌  Контакти" }]],
+				resize_keyboard: true,
+			},
+		});
 	} catch (e) {
 		console.error(e);
 	}
