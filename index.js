@@ -35,7 +35,7 @@ bot.hears("📅  Дням", async (ctx) => {
 	try {
 		return ctx.replyWithHTML("Події цього тижня:", {
 			reply_markup: {
-				keyboard: [[{ text: "ВТ" }, { text: "СР" }, { text: "ЧТ" }, { text: "СБ" }, { text: "НД" }], [{ text: "🏠  На головну" }]],
+				keyboard: [[{ text: "ВТ" }, { text: "СР" }, { text: "ЧТ" }, { text: "НД" }], [{ text: "🏠  На головну" }]],
 				resize_keyboard: true,
 			},
 		});
@@ -48,6 +48,18 @@ bot.hears("✨  Категоріям", async (ctx) => {
 		return ctx.replyWithHTML("Категорії:", {
 			reply_markup: {
 				keyboard: [[{ text: "🧘  Йога" }, { text: "🍃  Чай" }], [{ text: "☯️  Цігун" }, { text: "🕉️  Медитація" }], [{ text: "🏠  На головну" }]],
+				resize_keyboard: true,
+			},
+		});
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.hears("🍃  Чай", async (ctx) => {
+	try {
+		return ctx.replyWithHTML("Чайні івенти:", {
+			reply_markup: {
+				keyboard: [[{ text: "🍃 Чай та дзадзен" }, { text: "🍵  Чаювання по домашньому" }], [{ text: "🏠  На головну" }]],
 				resize_keyboard: true,
 			},
 		});
@@ -90,19 +102,19 @@ base.days.forEach((day) => {
 				});
 			}
 
-			if (day === "СБ") {
-				return ctx.replyWithHTML("Події суботи:", {
-					reply_markup: {
-						keyboard: [[{ text: "Теплий Indoor Live Love Festival" }], [{ text: "🏠  На головну" }]],
-						resize_keyboard: true,
-					},
-				});
-			}
+			// if (day === "СБ") {
+			// 	return ctx.replyWithHTML("Події суботи:", {
+			// 		reply_markup: {
+			// 			keyboard: [[{ text: "Теплий Indoor Live Love Festival" }], [{ text: "🏠  На головну" }]],
+			// 			resize_keyboard: true,
+			// 		},
+			// 	});
+			// }
 
 			if (day === "НД") {
 				return ctx.replyWithHTML("Події неділі:", {
 					reply_markup: {
-						keyboard: [[{ text: "Теплий Indoor Live Love Festival" }], [{ text: "🏠  На головну" }]],
+						keyboard: [[{ text: "🍁  Теплий Indoor Live Love Festival" }, { text: "🍵  Чаювання по домашньому" }], [{ text: "🏠  На головну" }]],
 						resize_keyboard: true,
 					},
 				});
