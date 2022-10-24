@@ -11,7 +11,7 @@ bot.start(async (ctx) => {
 		if (base.status === false) {
 			return ctx.replyWithHTML(base.textWelcome, {
 				reply_markup: {
-					keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }]],
+					keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }], [{ text: "🧧  Чайна розсилка" }]],
 					resize_keyboard: true,
 				},
 			});
@@ -21,7 +21,7 @@ bot.start(async (ctx) => {
 			} else {
 				return ctx.replyWithHTML(base.textWelcome, {
 					reply_markup: {
-						keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }]],
+						keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }], [{ text: "🧧  Чайна розсилка" }]],
 						resize_keyboard: true,
 					},
 				});
@@ -175,10 +175,29 @@ bot.hears("🏠  На головну", async (ctx) => {
 	try {
 		return ctx.replyWithHTML("Головне меню:", {
 			reply_markup: {
-				keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }]],
+				keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }], [{ text: "🧧  Чайна розсилка" }]],
 				resize_keyboard: true,
 			},
 		});
+	} catch (e) {
+		console.error(e);
+	}
+});
+bot.hears(["🧧  Чайна розсилка"], async (ctx) => {
+	try {
+		return ctx.replyWithPhoto(
+			{
+				source: base.teaSend.src,
+			},
+			{
+				caption: base.teaSend.text,
+				parse_mode: "HTML",
+				reply_markup: {
+					inline_keyboard: [[Markup.button.url("Оформити предзамовлення", "t.me/original_amet")]],
+					resize_keyboard: true,
+				},
+			}
+		);
 	} catch (e) {
 		console.error(e);
 	}
