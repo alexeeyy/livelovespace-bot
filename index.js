@@ -21,7 +21,7 @@ bot.start(async (ctx) => {
 		// 	} else {
 		// 		return ctx.replyWithHTML(base.textWelcome, {
 		// 			reply_markup: {
-		// 				keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "💌  Контакти" }], [{ text: "🧧  Чайна розсилка" }]],
+		// 				keyboard: [[{ text: "📅  Розклад подій" }], [{ text: "💌  Контакти" }], [{ text: "🧧  Чайна розсилка" }]],
 		// 				resize_keyboard: true,
 		// 			},
 		// 		});
@@ -194,7 +194,7 @@ bot.hears("🏠  На головну", async (ctx) => {
 	try {
 		return ctx.replyWithHTML("Головне меню:", {
 			reply_markup: {
-				keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "🍃  Live Love Tea" }], [{ text: "❗  Інформація" }], [{ text: "🆘  Повідомити про помилку" }]],
+				keyboard: [[{ text: "📅  Розклад подій" }], [{ text: "🍃  Live Love Tea" }], [{ text: "❗  Інформація" }], [{ text: "🆘  Повідомити про помилку" }]],
 				resize_keyboard: true,
 			},
 		});
@@ -240,7 +240,7 @@ function notifyAboutError(message_id, from_id, active = true) {
 				active = false;
 				return ctx.replyWithHTML("Дякую за Ваше повідомлення 🙏", {
 					reply_markup: {
-						keyboard: [[{ text: "🎉  Розклад подій" }], [{ text: "🍃  Live Love Tea" }], [{ text: "❗  Інформація" }], [{ text: "🆘  Повідомити про помилку" }]],
+						keyboard: [[{ text: "📅  Розклад подій" }], [{ text: "🍃  Live Love Tea" }], [{ text: "❗  Інформація" }], [{ text: "🆘  Повідомити про помилку" }]],
 						resize_keyboard: true,
 					},
 				});
